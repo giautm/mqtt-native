@@ -1,0 +1,23 @@
+{
+  "name": "mqtt-native-example",
+  "displayName": "PahoMqtt Example",
+  "expo": {
+    "owner": "viecco",
+    "name": "mqtt-native-example",
+    "slug": "mqtt-native-example",
+    "description": "Example app for mqtt-native",
+    "privacy": "public",
+    "version": "1.0.0",
+    "platforms": [
+      "ios",
+      "android",
+      "web"
+    ],
+    "ios": {
+      "supportsTablet": true
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}
