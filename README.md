@@ -10,12 +10,43 @@ npm install mqtt-native
 
 ## Usage
 
-```js
-import PahoMqtt from "mqtt-native";
+```tsx
+import * as React from 'react'
 
-// ...
+import { Client, TextDecoder } from 'mqtt-native'
 
-const result = await PahoMqtt.multiply(3, 7);
+const utf8Decoder = new TextDecoder()
+
+export default function App() {
+  React.useEffect(() => {
+    const client = new Client({
+      url: 'ws://broker.emqx.io:8083/mqtt',
+      // logger: console.log,
+    })
+
+    client.on('message', (topic: string, message: Uint8Array) => {
+      const prefix = topic + ' '
+      console.log('message', prefix + utf8Decoder.decode(message))
+    })
+    ;(async () => {
+      try {
+        await client.connect()
+        console.log('OK 1')
+        await client.subscribe('/topic/#')
+        console.log('OK 2')
+      } catch (ee) {
+        console.log('err', ee)
+      }
+    })()
+
+    //.multiply(3, 7).then(setResult);
+    return () => {
+      client.disconnect()
+    }
+  }, [])
+
+  return null
+}
 ```
 
 ## Contributing
